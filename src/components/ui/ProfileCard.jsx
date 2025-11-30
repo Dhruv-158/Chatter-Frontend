@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserProfile, useProfilePicture, useProfileUpdate, useFriendsList } from '@/hooks';
 import { selectFullProfilePictureUrl } from '@/states/userSlice';
+import { logoutUser } from '@/states/authSlice';
+import { setLoading } from '@/states/loadingSlice';
 import { Camera, Edit2, LogOut, Mail, User, Users, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const ProfileCard = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { profile } = useUserProfile();
     const profilePicture = useSelector(selectFullProfilePictureUrl);
     const { uploadPicture, isUploading } = useProfilePicture();
@@ -44,10 +47,13 @@ const ProfileCard = () => {
         }
     };
 
-    // Handle logout
+    // Handle logout - properly reset all state
     const handleLogout = () => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        // Reset loading state
+        dispatch(setLoading(false));
+        // Dispatch logout action (this also clears localStorage)
+        dispatch(logoutUser());
+        // Navigate to login
         navigate('/login');
     };
 

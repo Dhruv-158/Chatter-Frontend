@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { loginService } from '@/services/authServices'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectIsLoading, setLoading } from '@/states/loadingSlice'
 
 
 const LoginCover = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
   const isLoading = useSelector(selectIsLoading)
   
@@ -22,6 +23,11 @@ const LoginCover = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   
+  // Reset loading state when component mounts (fixes "Signing In..." issue after logout)
+  useEffect(() => {
+    dispatch(setLoading(false))
+  }, [dispatch])
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,6 +36,7 @@ const LoginCover = () => {
     // Clear errors when user starts typing
     if (error) setError('')
   }
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -52,8 +59,9 @@ const LoginCover = () => {
         password: ''
       })
       
-      // Redirect to messages after successful login
-      navigate('/messages')
+      // Redirect to intended page or messages after successful login
+      const from = location.state?.from?.pathname || '/messages'
+      navigate(from, { replace: true })
       
     } catch (err) {
       // Handle different error types
