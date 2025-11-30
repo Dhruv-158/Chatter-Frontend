@@ -1,0 +1,284 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+@layer base {
+  :root {
+    /* Blue Theme - Light Mode */
+    --background: 210 40% 98%;
+    --foreground: 208 86% 31%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 208 86% 31%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 208 86% 31%;
+
+    --primary: 208 58% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 209 60% 65%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 208 47% 50%;
+
+    --accent: 205 69% 71%;
+    --accent-foreground: 208 86% 31%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 209 60% 85%;
+    --input: 209 60% 85%;
+    --ring: 208 58% 45%;
+
+    --radius: 1rem;
+
+    --chat-bubble: 208 58% 45%;
+    --chat-bubble-foreground: 0 0% 100%;
+    --chat-bubble-other: 210 40% 96%;
+    --chat-bubble-other-foreground: 208 86% 31%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 208 86% 31%;
+    --sidebar-primary: 208 58% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 208 86% 31%;
+    --sidebar-border: 209 60% 90%;
+    --sidebar-ring: 208 58% 45%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(208, 58%, 45%), hsl(209, 60%, 65%));
+    --gradient-subtle: linear-gradient(180deg, hsl(210, 40%, 98%), hsl(210, 40%, 95%));
+
+    --shadow-sm: 0 1px 2px 0 hsl(208 86% 31% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(208 86% 31% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(208 86% 31% / 0.1);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Slate Gray Theme - Dark Mode */
+    --background: 0 0% 17%;
+    --foreground: 0 0% 89%;
+
+    --card: 0 0% 20%;
+    --card-foreground: 0 0% 89%;
+
+    --popover: 0 0% 20%;
+    --popover-foreground: 0 0% 89%;
+
+    --primary: 267 33% 71%;
+    /* Lavender Button/CTA */
+    --primary-foreground: 0 0% 17%;
+    /* Dark text on lavender button */
+
+    --secondary: 178 42% 76%;
+    /* Light Cyan Accent 1 */
+    --secondary-foreground: 0 0% 17%;
+
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 349 100% 88%;
+    /* Soft Pink Accent 2 */
+    --accent-foreground: 0 0% 17%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 89%;
+
+    --border: 0 0% 30%;
+    --input: 0 0% 30%;
+    --ring: 267 33% 71%;
+
+    --chat-bubble: 267 33% 71%;
+    --chat-bubble-foreground: 0 0% 17%;
+    --chat-bubble-other: 0 0% 25%;
+    --chat-bubble-other-foreground: 0 0% 89%;
+
+    --sidebar-background: 0 0% 15%;
+    --sidebar-foreground: 0 0% 89%;
+    --sidebar-primary: 267 33% 71%;
+    --sidebar-primary-foreground: 0 0% 17%;
+    --sidebar-accent: 0 0% 25%;
+    --sidebar-accent-foreground: 0 0% 89%;
+    --sidebar-border: 0 0% 30%;
+    --sidebar-ring: 267 33% 71%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(267, 33%, 71%), hsl(178, 42%, 76%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 17%), hsl(0, 0%, 20%));
+
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .h-dvh {
+    height: 100dvh;
+  }
+
+  /* Custom Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 20px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+/* Custom animations */
+@keyframes pulse-subtle {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* Chat Scrollbar Styles */
+.chat-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Fade scale animation for menus */
+@keyframes fade-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-scale {
+  animation: fade-scale 0.15s ease-out;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+  button:not(.no-min-touch) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent text selection on double-tap (mobile) */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix iOS momentum scrolling */
+.scroll-smooth {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better backdrop for modals on mobile */
+@media (max-width: 768px) {
+  .modal-backdrop {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
