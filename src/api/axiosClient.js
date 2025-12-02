@@ -3,11 +3,11 @@ import store from "../store/store";
 import { setLoading } from "../states/loadingSlice";
 import { logoutUser } from "../states/authSlice";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5500/api/";
+const API_BASE_URL = import.meta.env.VITE_API_URL
 
 const axiosClient = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 30000, // 30 second timeout
+    timeout: 30000,
     headers: {
         "Content-Type": "application/json",
     },
@@ -48,14 +48,14 @@ axiosClient.interceptors.request.use(
         const now = Date.now();
         
         // Check if there's a recent identical request
-        if (cancelTokens.has(requestKey)) {
-            const { source, timestamp } = cancelTokens.get(requestKey);
+        // if (cancelTokens.has(requestKey)) {
+        //     const { source, timestamp } = cancelTokens.get(requestKey);
             
-            // Only cancel if the previous request was made very recently (within threshold)
-            if (now - timestamp < DUPLICATE_REQUEST_THRESHOLD) {
-                source.cancel('Duplicate request cancelled');
-            }
-        }
+        //     // Only cancel if the previous request was made very recently (within threshold)
+        //     if (now - timestamp < DUPLICATE_REQUEST_THRESHOLD) {
+        //         source.cancel('Duplicate request cancelled');
+        //     }
+        // }
         
         // Create new cancel token for this request
         const source = axios.CancelToken.source();
